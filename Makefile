@@ -8,5 +8,6 @@ TWEAK_NAME = CFMenu
 CFMenu_FILES = Tweak.xm
 CFMenu_CFLAGS = -fobjc-arc
 CFMenu_FRAMEWORKS = UIKit Foundation
+CFMenu_LIBRARIES = substrate
 
 include $(THEOS)/makefiles/tweak.mk
