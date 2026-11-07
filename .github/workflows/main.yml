@@ -9,9 +9,10 @@ jobs:
         run: |
           export THEOS=~/theos
           git clone --recursive https://github.com/theos/theos.git $THEOS
+          $THEOS/bin/nic.pl -n iphoneos -v 14.0 || true
           curl -L https://github.com/theos/sdks/archive/master.zip -o sdk.zip
           unzip -q sdk.zip -d /tmp/
-          mv /tmp/sdks-master/* $THEOS/sdks/
+          cp -R /tmp/sdks-master/* $THEOS/sdks/
       - name: Build
         run: |
           export THEOS=~/theos
