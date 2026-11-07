@@ -1,4 +1,4 @@
-ARCHS = arm64 arm64e 
+ARCHS = arm64 arm64e
 TARGET = iphone:clang:latest:14.0
 INSTALL_TARGET_PROCESSES = CounterFlame
 
@@ -8,5 +8,6 @@ TWEAK_NAME = CFMenu
 CFMenu_FILES = Tweak.xm
 CFMenu_CFLAGS = -fobjc-arc
 CFMenu_FRAMEWORKS = UIKit Foundation
+CFMenu_INSTALL_TARGET_PROCESSES = CounterFlame
 
 include $(THEOS)/makefiles/tweak.mk
