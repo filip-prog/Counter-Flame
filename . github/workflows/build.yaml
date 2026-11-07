@@ -13,3 +13,4 @@ jobs:
         with:
           name: tweak-dylib
           path: .theos/obj/debug/*.dylib
+          
