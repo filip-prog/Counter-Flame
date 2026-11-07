@@ -5,9 +5,8 @@ INSTALL_TARGET_PROCESSES = CounterFlame
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = CFMenu
-CFMenu_FILES = Tweak.xm
+CFMenu_FILES = Tweak.xm Filter.plist
 CFMenu_CFLAGS = -fobjc-arc
 CFMenu_FRAMEWORKS = UIKit Foundation
-CFMenu_INSTALL_TARGET_PROCESSES = CounterFlame
 
 include $(THEOS)/makefiles/tweak.mk
