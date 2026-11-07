@@ -2,21 +2,16 @@ name: Build Tweak
 on: [push, workflow_dispatch]
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install Dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y git make clang libplist-utils libssl-dev libxml2-dev libcurl4-openssl-dev
       - name: Install Theos
         run: |
           export THEOS=~/theos
           git clone --recursive https://github.com/theos/theos.git $THEOS
           curl -L https://github.com/theos/sdks/archive/master.zip -o sdk.zip
-          unzip -q sdk.zip
-          mkdir -p $THEOS/sdks
-          mv sdks-master/* $THEOS/sdks/
+          ditto -x -k sdk.zip /tmp/
+          cp -R /tmp/sdks-master/* $THEOS/sdks/
       - name: Build
         run: |
           export THEOS=~/theos
