@@ -1,15 +1,23 @@
 name: Build Tweak
-on: 
-  push:
-  workflow_dispatch:
+on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: Randomblock1/theos-action@v1
+      - name: Install Theos
+        run: |
+          export THEOS=~/theos
+          git clone --recursive https://github.com/theos/theos.git $THEOS
+          curl -L https://github.com/theos/sdks/archive/master.zip -o sdk.zip
+          unzip -q sdk.zip
+          mv sdks-master/* $THEOS/sdks/
+          rm -rf sdk.zip sdks-master
       - name: Build
-        run: make package
+        run: |
+          export THEOS=~/theos
+          export PATH=$THEOS/bin:$PATH
+          make package
       - name: Upload dylib
         uses: actions/upload-artifact@v4
         with:
