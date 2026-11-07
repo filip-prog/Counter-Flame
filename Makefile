@@ -8,6 +8,8 @@ TWEAK_NAME = CFMenu
 CFMenu_FILES = Tweak.xm
 CFMenu_CFLAGS = -fobjc-arc
 CFMenu_FRAMEWORKS = UIKit Foundation
+CFMenu_LIBRARIES = substrate
+CFMenu_LOGOS_DEFAULT_GENERATOR = internal
 CFMenu_LDFLAGS = -Wl,-undefined,dynamic_lookup
 
 include $(THEOS)/makefiles/tweak.mk
