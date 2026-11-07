@@ -11,7 +11,8 @@ jobs:
           git clone --recursive https://github.com/theos/theos.git $THEOS
           curl -L https://github.com/theos/sdks/archive/master.zip -o sdk.zip
           unzip -q sdk.zip
-          mv sdks-master/* $THEOS/sdks/
+          mkdir -p $THEOS/sdks
+          cp -R sdks-master/* $THEOS/sdks/
           rm -rf sdk.zip sdks-master
       - name: Build
         run: |
