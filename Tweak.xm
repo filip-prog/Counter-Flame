@@ -22,7 +22,6 @@ static void* g_GameController = nullptr;
 static void* g_LocalPlayer = nullptr;
 static void* g_MainCamera = nullptr;
 
-// Metoda care va fi apelata in locul celei originale
 void (*orig_GameController_Awake)(id, SEL);
 void my_GameController_Awake(id self, SEL _cmd) {
     g_GameController = (__bridge void*)self;
@@ -40,16 +39,16 @@ void my_PlayerController_Awake(id self, SEL _cmd) {
     if (orig_PlayerController_Awake) orig_PlayerController_Awake(self, _cmd);
 }
 
-// Functia care hookuieste o metoda
+// Aici era eroarea: am adaugat type-casting corect
 void HookMethod(Class targetClass, SEL targetSelector, void *replacement, void **original) {
     Method targetMethod = class_getInstanceMethod(targetClass, targetSelector);
     if (targetMethod) {
-        *original = method_getImplementation(targetMethod);
+        IMP originalImp = method_getImplementation(targetMethod);
+        *original = (void*)originalImp; // Fix-ul este aici
         method_setImplementation(targetMethod, (IMP)replacement);
     }
 }
 
-// Se executa cand tweak-ul se incarca
 __attribute__((constructor)) static void init() {
     Class gc = objc_getClass("GameController");
     if (gc) HookMethod(gc, @selector(Awake), (void*)my_GameController_Awake, (void**)&orig_GameController_Awake);
